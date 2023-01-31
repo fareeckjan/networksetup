@@ -1,0 +1,25 @@
+#bin/bash
+#
+#   Author: Farzod Rustamov
+#   Date:   31.01.2023
+#
+#
+
+NETWORK_SERVICE_NAME="Wi-Fi"
+
+if [ "$#" -ne 1 ]; then
+    echo "Argument missing [on/off]"
+    exit 0
+fi
+
+if [ $1 == "on" ]; then
+    echo "Enabling proxy for $NETWORK_SERVICE_NAME"
+    networksetup -setsecurewebproxystate "$NETWORK_SERVICE_NAME" on
+    networksetup -setwebproxystate  "$NETWORK_SERVICE_NAME" on
+elif [ $1 == "off" ]; then
+    echo "Disabling proxy for $NETWORK_SERVICE_NAME"
+    networksetup -setsecurewebproxystate "$NETWORK_SERVICE_NAME" off
+    networksetup -setwebproxystate  "$NETWORK_SERVICE_NAME" off
+else
+    echo "Argument invalid [permitted:on/off]"
+fi
